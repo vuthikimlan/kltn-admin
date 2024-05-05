@@ -1,10 +1,10 @@
-import { Descriptions, Drawer } from "antd";
+import { Button, Descriptions, Drawer } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUserById } from "../../Services/api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { drawerclose } from "../../store/modalSlice";
+import { drawerClose } from "../../store/modalSlice";
 
 const DetailUser = () => {
   const [data, setData] = useState<any>();
@@ -19,7 +19,7 @@ const DetailUser = () => {
   );
 
   const hiddenDrawer = () => {
-    dispatch(drawerclose({ drawerKey: "drawerUser" }));
+    dispatch(drawerClose({ drawerKey: "drawerUser" }));
   };
 
   const handleGetInforUser = async (idPath: string) => {
@@ -95,6 +95,9 @@ const DetailUser = () => {
             </>
           )}
         </Descriptions>
+        <div>
+          <Button>Thanh toán</Button>
+        </div>
       </Drawer>
     </>
   );

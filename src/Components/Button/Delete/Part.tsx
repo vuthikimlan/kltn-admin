@@ -21,8 +21,8 @@ const DeletePart = ({ id, getCourse }: any) => {
   return (
     <>
       <Popconfirm
-        title="Xóa khóa học"
-        description="Bạn có chắc chắn xóa khóa học này"
+        title="Xóa phần học"
+        description="Bạn có chắc chắn xóa phần học này"
         onConfirm={confirm}
         okText="Đồng ý"
         cancelText="Hủy"

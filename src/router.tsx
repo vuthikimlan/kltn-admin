@@ -23,6 +23,10 @@ import StudentOfCourse from "./Components/Table/User/StudentOfCourse";
 import RatingsCourse from "./Components/Table/Course/RatingsCourse";
 import PageCourseInstructor from "./App/Course/CourseInstructor";
 import PageCourseInstructorAdmin from "./App/Course/CourseInstructorAdmin";
+import PageStatistic from "./App/Revenue/PageStatistic";
+import RevenueByMonthAdmin from "./App/Revenue/RevenueByMonthAdmin";
+import RevenueByMonthTeacher from "./App/Revenue/RevenueByMonthTeacher";
+import PaymentOfTeacher from "./App/Payment/PaymentOfTeacher";
 
 export const router = createBrowserRouter([
   {
@@ -129,6 +133,14 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <ProfileUser />,
       },
+      {
+        path: "total-revenue",
+        element: <PageStatistic />,
+      },
+      {
+        path: "total-revenue-month",
+        element: <RevenueByMonthAdmin />,
+      },
     ],
   },
   {
@@ -165,6 +177,14 @@ export const router = createBrowserRouter([
       {
         path: "students",
         element: <StudentOfTeacher />,
+      },
+      {
+        path: "total-revenue",
+        element: <RevenueByMonthTeacher />,
+      },
+      {
+        path: "payment-management",
+        element: <PaymentOfTeacher />,
       },
     ],
   },

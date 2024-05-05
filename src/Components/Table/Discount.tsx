@@ -8,6 +8,7 @@ import AddEditDiscount from "../Modal/AddEditDiscount";
 import DeleteDiscount from "../Button/Delete/Discount";
 import ButtonFilter from "../Button/ButtonFilter";
 import PopOverDiscount from "../PopOver/PopOverDiscount";
+import formatDate from "../../Services/helper";
 
 interface DataType {
   key: string;
@@ -57,6 +58,9 @@ function TableDiscount() {
       title: "Ngày hết hạn",
       dataIndex: "expiryDate",
       key: "expiryDate",
+      render: (_, { expiryDate }: any, record: any) => (
+        <>{<p>{formatDate(`${expiryDate}`)}</p>}</>
+      ),
     },
     {
       title: "Action",

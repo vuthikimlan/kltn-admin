@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Menu } from "antd";
 import type { MenuProps } from "antd";
-import { TeamOutlined } from "@ant-design/icons";
+import { LineChartOutlined, TeamOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "../Services/api/user";
 type MenuItem = Required<MenuProps>["items"][number];
@@ -27,9 +27,11 @@ const Sidebar: React.FC = () => {
   const [data, setData] = useState({});
 
   const handleGetProfile = () => {
-    getProfile().then((res) => {
-      setData(res?.data?.data?.role);
-    });
+    getProfile().then(
+      (res: { data: { data: { role: React.SetStateAction<{}> } } }) => {
+        setData(res?.data?.data?.role);
+      }
+    );
   };
 
   const checkPermission = data === "ADMIN";
@@ -52,10 +54,17 @@ const Sidebar: React.FC = () => {
     getItem("Quản lý blog - Bài viết", "blog"),
     getItem("Quản lý mã giảm giá", "discount"),
     getItem("Quản lý thể loại", "category"),
+    getItem("Quản lý doanh thu", "sub2", <LineChartOutlined />, [
+      getItem("Doanh thu của hệ thống", "total-revenue"),
+    ]),
   ];
   const instructorItems: MenuItem[] = [
     getItem("Quản lý khóa học", "courses"),
     getItem("Quản lý Học viên", "students"),
+    getItem("Quản lý doanh thu", "sub3", <LineChartOutlined />, [
+      getItem("Doanh thu của các khóa học", "total-revenue"),
+      getItem("Quản lý thanh toán", "payment-management"),
+    ]),
   ];
 
   return (

@@ -1,11 +1,7 @@
 import { Button, Descriptions, Drawer } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import {
-  drawerclose,
-  modalAddEditOpen,
-  updateProfile,
-} from "../../store/modalSlice";
+import { drawerClose, modalAddEditOpen } from "../../store/modalSlice";
 import { getProfile } from "../../Services/api/user";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,13 +16,12 @@ function ProfileUser() {
     (state: RootState) => state?.modal.drawerOpen.drawerProfile
   );
   const hiddenDrawer = () => {
-    dispatch(drawerclose({ drawerKey: "drawerProfile" }));
+    dispatch(drawerClose({ drawerKey: "drawerProfile" }));
   };
 
   const handleGetProfile = () => {
     getProfile().then((res) => {
       setData(res?.data?.data);
-      dispatch(updateProfile(res?.data?.data));
     });
   };
 
@@ -97,7 +92,9 @@ function ProfileUser() {
         <Button
           onClick={() => {
             hiddenDrawer();
-            dispatch(modalAddEditOpen({}));
+            dispatch(
+              modalAddEditOpen({ modalKey: "modalProfile", data: data })
+            );
           }}
         >
           Chỉnh sửa thông tin

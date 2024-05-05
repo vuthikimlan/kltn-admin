@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getOrderById } from "../../Services/api/order";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { drawerclose } from "../../store/modalSlice";
+import { drawerClose } from "../../store/modalSlice";
 import formatDate from "../../Services/helper";
 
 function DetailOrder() {
@@ -18,7 +18,7 @@ function DetailOrder() {
   );
 
   const hiddenDrawer = () => {
-    dispatch(drawerclose({ drawerKey: "drawerOrder" }));
+    dispatch(drawerClose({ drawerKey: "drawerOrder" }));
   };
 
   const getById = async () => {

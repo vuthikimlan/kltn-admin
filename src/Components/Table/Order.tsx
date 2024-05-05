@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getListOrder } from "../../Services/api/order";
 import ButtonDetail from "../Button/Detail/DetailOrder";
 import DetailOrder from "../Drawer/detailOrder";
+import formatDate from "../../Services/helper";
 
 interface DataType {
   key: string;
@@ -42,9 +43,18 @@ function TableOrder() {
       key: "totalPrice",
     },
     {
+      title: "Khách hàng",
+      dataIndex: "user",
+      key: "user",
+      render: (_, { user }: any, record: any) => <>{<p>{user?.name} </p>}</>,
+    },
+    {
       title: "Ngày đặt hàng",
       dataIndex: "orderDate",
       key: "orderDate",
+      render: (_, { orderDate }: any, record: any) => (
+        <>{<p>{formatDate(`${orderDate}`)}</p>}</>
+      ),
     },
     {
       title: "Trạng thái",

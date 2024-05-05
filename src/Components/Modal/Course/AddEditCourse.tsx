@@ -27,6 +27,7 @@ const AddEditCourse = ({ getCourse }: DataType) => {
   );
 
   const updateData = useSelector((state: RootState) => state?.modal?.modalData);
+
   const [field, setField] = useState();
   const [topic, setTopic] = useState();
   const data = updateData as any;
@@ -134,11 +135,40 @@ const AddEditCourse = ({ getCourse }: DataType) => {
             label="Mô tả"
             placeholder="Mô tả"
           />
+          <ProFormTextArea
+            width="md"
+            name="detailsCourse"
+            label="Chi tiết về khóa học"
+            placeholder="Chi tiết về khóa học"
+          />
 
           <ProFormSelect
             width="md"
             name="field"
-            // initialValue={data._id ? data?.}
+            convertValue={(value) => {
+              if (value?.title) {
+                return {
+                  value: value.id,
+                  label: value.title,
+                };
+              } else {
+                return value;
+              }
+            }}
+            // transform={(value) => {
+            //   console.log("value", value);
+
+            //   // if (value?.title) {
+            //   //   console.log("true");
+            //   //   const list = value.map((val: { id: any }) => val?.id);
+            //   //   return {
+            //   //     field: list,
+            //   //   };
+            //   // } else {
+            //   //   return { field: value };
+            //   // }
+            // }}
+            initialValue={data._id ? data.field.title : ""}
             options={field}
             label="Lĩnh vực"
             placeholder="Lĩnh vực"

@@ -21,8 +21,8 @@ function DeleteLecture({ idPart, idLecture, getCourse }: any) {
   return (
     <>
       <Popconfirm
-        title="Xóa khóa học"
-        description="Bạn có chắc chắn xóa khóa học này"
+        title="Xóa bài giảng"
+        description="Bạn có chắc chắn xóa bài giảng này"
         onConfirm={confirm}
         okText="Đồng ý"
         cancelText="Hủy"

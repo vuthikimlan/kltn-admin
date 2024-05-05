@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../store/store";
-import { drawerclose } from "../../store/modalSlice";
+import { drawerClose } from "../../store/modalSlice";
 import { getBlogById } from "../../Services/api/blog";
 import { Descriptions, Drawer, Image } from "antd";
 
@@ -11,12 +11,13 @@ function DetailBLog() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+
   const drawerOpen = useSelector(
     (state: RootState) => state?.modal.drawerOpen.drawerBlog
   );
 
   const hiddenDrawer = () => {
-    dispatch(drawerclose({ drawerKey: "drawerBlog" }));
+    dispatch(drawerClose({ drawerKey: "drawerBlog" }));
   };
 
   const getById = async () => {
@@ -27,6 +28,8 @@ function DetailBLog() {
     });
   };
 
+  console.log("data", data);
+
   useEffect(() => {
     getById();
   }, [id]);
@@ -35,7 +38,7 @@ function DetailBLog() {
     <>
       <Drawer
         title="Thông tin chi tiết của blog - bài viết"
-        width={600}
+        width={800}
         open={drawerOpen}
         onClose={() => {
           hiddenDrawer();
@@ -57,12 +60,12 @@ function DetailBLog() {
             {data?.description}
           </Descriptions.Item>
           <Descriptions.Item label="Lĩnh vực" span={2}>
-            {data?.field}
+            {data?.field?.title}
           </Descriptions.Item>
           <Descriptions.Item label="Tác giả" span={2}>
             {data?.author?.nameAuthor}
           </Descriptions.Item>
-          <Descriptions.Item label="Nội dung" span={2}>
+          <Descriptions.Item label="Nội dung">
             <div dangerouslySetInnerHTML={{ __html: data?.content }}></div>
           </Descriptions.Item>
         </Descriptions>

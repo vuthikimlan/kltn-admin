@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../store/store";
 import { Descriptions, Drawer, Image } from "antd";
 import { getCourseById } from "../../Services/api/course";
-import { drawerclose } from "../../store/modalSlice";
+import { drawerClose } from "../../store/modalSlice";
 
 const DetailCourse = () => {
   const [data, setData] = useState<any>();
@@ -13,12 +13,12 @@ const DetailCourse = () => {
   const { id } = useParams();
 
   const drawerOpen = useSelector(
-    (state: RootState) => state?.modal.drawerOpen.drawerUser
+    (state: RootState) => state?.modal.drawerOpen.drawerCourse
   );
   const role = useSelector((state: RootState) => state?.modal?.role);
 
   const hiddenDrawer = () => {
-    dispatch(drawerclose({ drawerKey: "drawerCourse" }));
+    dispatch(drawerClose({ drawerKey: "drawerCourse" }));
   };
 
   const handleGetInfor = async () => {

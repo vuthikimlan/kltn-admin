@@ -63,8 +63,16 @@ function TableBlog() {
       title: "Lĩnh vực",
       dataIndex: "field",
       key: "field",
+      render: (_, { field }: any, record: any) => <>{<p>{field?.title} </p>}</>,
     },
-
+    {
+      title: "Tác giả",
+      dataIndex: "author",
+      key: "author",
+      render: (_, { author }: any, record: any) => (
+        <>{<p>{author?.nameAuthor} </p>}</>
+      ),
+    },
     {
       title: "Action",
       key: "action",

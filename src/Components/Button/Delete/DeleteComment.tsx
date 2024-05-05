@@ -1,7 +1,7 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
-import { deleteComment } from "../../../Services/api/Comment";
 import { useParams } from "react-router-dom";
+import { deleteComment } from "../../../Services/api/comment";
 
 interface DataType {
   onSuccess: () => void;

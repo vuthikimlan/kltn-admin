@@ -13,7 +13,7 @@ const ButtonDetail = ({ record }: any) => {
   const role = useSelector((state: RootState) => state?.modal?.role);
 
   const showDrawer = () => {
-    dispatch(drawerOpen({ drawerKey: "drawerUser" }));
+    dispatch(drawerOpen({ drawerKey: "drawerCourse" }));
   };
   return (
     <div>

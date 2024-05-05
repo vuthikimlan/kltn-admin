@@ -10,6 +10,8 @@ import { createField, updateField } from "../../Services/api/category";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function AddField({ fieldId, getField }: any) {
+  console.log(fieldId);
+
   const formRef = useRef<FormInstance>(null);
   const dispatch = useDispatch();
   const modalOpen = useSelector(
