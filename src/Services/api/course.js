@@ -128,3 +128,7 @@ export const getCourseRejected = () => {
 export const applyDiscount = (courseId, values) => {
   return axios.post(`/course/${courseId}/apply-discount`, values);
 };
+
+export const cancelDiscount = (courseId) => {
+  return axios.put(`/course/${courseId}/reset-discount`);
+};

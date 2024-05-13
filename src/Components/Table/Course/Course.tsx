@@ -12,10 +12,13 @@ import { useNavigate } from "react-router-dom";
 import DropdownInstructor from "../../Dropdown/DropdownInstructor";
 import ApplyDiscount from "../../PopOver/applyDiscount";
 import ButtonApplyDiscount from "../../Button/ButtonApplyDiscount";
+import CancelDiscount from "../../Button/CancelDiscount";
 
 interface DataType {
   key: string;
   name: string;
+  price: number;
+  discountedPrice: number;
 }
 
 const TableCourse = () => {
@@ -100,11 +103,15 @@ const TableCourse = () => {
       title: "Chi phí",
       dataIndex: "price",
       key: "price",
+      render: (_, { price }) => <>{price.toLocaleString("en")} VND </>,
     },
     {
       title: "Chi phí sau khi giảm giá",
       dataIndex: "discountedPrice",
       key: "discountedPrice",
+      render: (_, { discountedPrice }) => (
+        <>{discountedPrice ? discountedPrice.toLocaleString("en") : 0} VND </>
+      ),
     },
     {
       title: "Mã giảm giá",
@@ -143,6 +150,7 @@ const TableCourse = () => {
           <ButtonDetail record={record} />
           <DropdownInstructor record={record} />
           <ButtonApplyDiscount modalKey="modalDiscount" record={record?._id} />
+          <CancelDiscount record={record?._id} />
         </Space>
       ),
     },
@@ -177,7 +185,12 @@ const TableCourse = () => {
         columns={columns}
         dataSource={data}
         loading={loading}
-        scroll={{ x: 1300 }}
+        scroll={{
+          y: 413,
+        }}
+        pagination={{
+          pageSize: 7,
+        }}
       />
       <ApplyDiscount
         onSuccess={() => {

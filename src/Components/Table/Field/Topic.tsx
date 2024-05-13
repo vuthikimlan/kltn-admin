@@ -79,7 +79,7 @@ function Topic({ data, fieldId, getField }: any) {
           }}
           trigger="click"
         >
-          <Button>Thêm Chủ đề</Button>
+          <Button>Thêm chủ đề</Button>
         </Popover>
       </div>
     </>

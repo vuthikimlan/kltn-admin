@@ -1,6 +1,6 @@
 import { PageContainer } from "@ant-design/pro-components";
 import { Space, Table, TableProps } from "antd";
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { getListOrder } from "../../Services/api/order";
 import ButtonDetail from "../Button/Detail/DetailOrder";
 import DetailOrder from "../Drawer/detailOrder";
@@ -9,6 +9,8 @@ import formatDate from "../../Services/helper";
 interface DataType {
   key: string;
   name: string;
+  price: [];
+  totalPrice: number;
 }
 
 function TableOrder() {
@@ -38,9 +40,40 @@ function TableOrder() {
       key: "orderId",
     },
     {
+      title: "Khóa học",
+      dataIndex: "price",
+      key: "price",
+      render: (_, { price }) => (
+        <>
+          {price.map((course: any, ind: Key) => (
+            <ul key={ind}>
+              <li>{course.name}</li>
+            </ul>
+          ))}
+        </>
+      ),
+    },
+    {
+      title: "Chi phí",
+      dataIndex: "price",
+      key: "price",
+      render: (_, { price }) => (
+        <>
+          {price.map((course: any, ind: Key) => (
+            <ul key={ind}>
+              <li>{course.price.toLocaleString("en")} VND </li>
+            </ul>
+          ))}
+        </>
+      ),
+    },
+    {
       title: "Tổng tiền",
       dataIndex: "totalPrice",
       key: "totalPrice",
+      render: (_, { totalPrice }) => (
+        <>{totalPrice.toLocaleString("en")} VND </>
+      ),
     },
     {
       title: "Khách hàng",

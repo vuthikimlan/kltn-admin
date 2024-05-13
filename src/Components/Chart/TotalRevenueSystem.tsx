@@ -1,22 +1,18 @@
 // import { Line } from '@ant-design/plots';
-import { Line } from '@ant-design/charts';
+import { Line } from "@ant-design/charts";
 
 interface DataType {
-  data: any,
-  xField: string,
+  data: any;
+  xField: string;
 }
 
-function TotalRevenueSystem ({data, xField}: DataType) {
-  // console.log('data', data);
-  // console.log('xField', xField);
-  
-
+function TotalRevenueSystem({ data, xField }: DataType) {
   const config = {
     data,
     xField: `${xField}`,
-    yField: 'revenue',
+    yField: "revenue",
     point: {
-      shapeField: 'square',
+      shapeField: "square",
       sizeField: 4,
     },
     interaction: {
@@ -32,9 +28,7 @@ function TotalRevenueSystem ({data, xField}: DataType) {
     <>
       <Line {...config} />
     </>
-  ) 
+  );
 }
 
 export default TotalRevenueSystem;
-
-// ReactDOM.render(<TotalRevenueSystem />, document.getElementById('container'))

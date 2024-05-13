@@ -11,3 +11,11 @@ export const totalRevenueSystemByMonth = () => {
 export const totalRevenueTeacherByMonth = () => {
   return axios.get("/payment/total-revenue-teacher-month");
 };
+
+export const revenueCourseByDay = (id) => {
+  return axios.get(`/payment/revenueCourseByDay/${id}`);
+};
+
+export const revenueCourseByMonth = (id) => {
+  return axios.get(`/payment/revenueCourseByMonth/${id}`);
+};

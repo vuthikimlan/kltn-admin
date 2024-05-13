@@ -27,6 +27,10 @@ import PageStatistic from "./App/Revenue/PageStatistic";
 import RevenueByMonthAdmin from "./App/Revenue/RevenueByMonthAdmin";
 import RevenueByMonthTeacher from "./App/Revenue/RevenueByMonthTeacher";
 import PaymentOfTeacher from "./App/Payment/PaymentOfTeacher";
+import RevenueCourse from "./Components/Table/Course/RevenueCourse";
+import RevenueCourseByDay from "./App/Revenue/RevenueCourseByDay";
+import RevenueCourseByMonth from "./App/Revenue/RevenueCourseByMonth";
+import RevenueCourseOfInstructor from "./Components/Table/Course/RevenueCourseOfInstructor";
 
 export const router = createBrowserRouter([
   {
@@ -141,6 +145,18 @@ export const router = createBrowserRouter([
         path: "total-revenue-month",
         element: <RevenueByMonthAdmin />,
       },
+      {
+        path: "revenue-course",
+        element: <RevenueCourse />,
+      },
+      {
+        path: "revenue-course-day/:id",
+        element: <RevenueCourseByDay />,
+      },
+      {
+        path: "revenue-course-month/:id",
+        element: <RevenueCourseByMonth />,
+      },
     ],
   },
   {
@@ -185,6 +201,18 @@ export const router = createBrowserRouter([
       {
         path: "payment-management",
         element: <PaymentOfTeacher />,
+      },
+      {
+        path: "revenue-course",
+        element: <RevenueCourseOfInstructor />,
+      },
+      {
+        path: "revenue-course-day/:id",
+        element: <RevenueCourseByDay />,
+      },
+      {
+        path: "revenue-course-month/:id",
+        element: <RevenueCourseByMonth />,
       },
     ],
   },

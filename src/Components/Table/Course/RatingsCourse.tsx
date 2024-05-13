@@ -1,11 +1,15 @@
 import { PageContainer } from "@ant-design/pro-components";
-import { Button, Space, Table, type TableProps } from "antd";
+import { Button, Popover, Space, Table, type TableProps } from "antd";
 import { getCourseById } from "../../../Services/api/course";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DeleteComment from "../../Button/Delete/DeleteComment";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { getComment } from "../../../Services/api/comment";
+import { openPopOver } from "../../../store/modalSlice";
+import ReplyCourse from "../../PopOver/ReplyCourse";
+import ButtonReply from "../../Button/ButtonReply";
 
 interface DataType {
   key: string;
@@ -25,13 +29,26 @@ function RatingsCourse() {
   const handleGetRatingsCourse = () => {
     getCourseById(id).then((res) => {
       if (res.status === 200) {
-        setData(res?.data?.data?.ratings || []);
         setTotalRatings(res?.data?.data?.totalRatings);
         setUserRatings(res?.data?.data?.userRatings);
         setLoading(false);
       }
     });
   };
+
+  const commentResult = useMemo(() => {
+    return getComment(id);
+  }, [id]);
+
+  commentResult.then((res) => {
+    setData(res?.data?.comments);
+  });
+
+  useEffect(() => {
+    handleGetRatingsCourse();
+    setLoading(false);
+  }, []);
+
   const columns: TableProps<DataType>["columns"] = [
     {
       title: "Người đánh giá",
@@ -52,6 +69,24 @@ function RatingsCourse() {
       key: "comment",
     },
     {
+      title: "Phản hồi",
+      dataIndex: "reply",
+      key: "reply",
+      render: (_, { reply }: any, record: any) => (
+        // <>{console.log("reply", reply)}</>
+        <>
+          {
+            <>
+              <div>
+                Phản hồi từ giảng viên: <p>{reply?.postedBy?.name}</p>
+                <p> {reply?.content} </p>
+              </div>
+            </>
+          }
+        </>
+      ),
+    },
+    {
       title: "Action",
       key: "action",
       render: (record) => (
@@ -62,15 +97,11 @@ function RatingsCourse() {
               handleGetRatingsCourse();
             }}
           />
+          <ButtonReply idComment={record?._id} />
         </Space>
       ),
     },
   ];
-
-  useEffect(() => {
-    handleGetRatingsCourse();
-    setLoading(false);
-  }, [id]);
 
   return (
     <PageContainer

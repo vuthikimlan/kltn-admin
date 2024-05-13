@@ -56,6 +56,7 @@ const Sidebar: React.FC = () => {
     getItem("Quản lý thể loại", "category"),
     getItem("Quản lý doanh thu", "sub2", <LineChartOutlined />, [
       getItem("Doanh thu của hệ thống", "total-revenue"),
+      getItem("Doanh thu của từng khóa học", "revenue-course"),
     ]),
   ];
   const instructorItems: MenuItem[] = [
@@ -63,7 +64,7 @@ const Sidebar: React.FC = () => {
     getItem("Quản lý Học viên", "students"),
     getItem("Quản lý doanh thu", "sub3", <LineChartOutlined />, [
       getItem("Doanh thu của các khóa học", "total-revenue"),
-      getItem("Quản lý thanh toán", "payment-management"),
+      getItem("Doanh thu của từng khóa học", "revenue-course"),
     ]),
   ];
 
