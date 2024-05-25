@@ -1,11 +1,13 @@
 import { PageContainer } from "@ant-design/pro-components";
-import { Space, Table, type TableProps } from "antd";
+import { Space, Table, type TableProps, DatePicker } from "antd";
 import ButtonSearch from "../../Button/ButtonSearch";
 import ButtonFilter from "../../Button/ButtonFilter";
 import PopOverCourse from "../../PopOver/PopOverCourse";
 import { useEffect, useState } from "react";
-import { filterCourse, getListCourse } from "../../../Services/api/course";
+import { filterCourse } from "../../../Services/api/course";
 import DropdownRevenue from "../../Dropdown/DropdownRevenue";
+import { revenueCourseByTime } from "../../../Services/api/revenue";
+import moment, { Moment } from "moment";
 
 interface DataType {
   key: string;
@@ -16,19 +18,41 @@ interface DataType {
 
 function RevenueCourse() {
   const [data, setData] = useState();
-  const [total, setTotal] = useState();
   const [loading, setLoading] = useState(true);
+  const [selectedDates, setSelectedDates] = useState<Moment[] | undefined>(
+    undefined
+  );
 
-  const handleGetCourse = () => {
-    setLoading(true);
-    getListCourse()
-      .then((res) => {
-        setData(res?.data?.data?.items);
-        setTotal(res?.data?.data?.total);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  console.log(selectedDates);
+
+  const { RangePicker } = DatePicker;
+
+  const handleValue = (dates: any) => {
+    setSelectedDates(dates);
+  };
+
+  const handleGetRevenueCourse = () => {
+    if (selectedDates) {
+      const fromDate = selectedDates[0].format("MM/DD/YYYY");
+      const toDate = selectedDates[1].format("MM/DD/YYYY");
+      setLoading(true);
+      revenueCourseByTime({ fromDate, toDate })
+        .then((res) => {
+          setData(res?.data?.data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      revenueCourseByTime()
+        .then((res) => {
+          setData(res?.data?.data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   const handleSearchData = (values: string) => {
@@ -50,40 +74,16 @@ function RevenueCourse() {
   };
 
   useEffect(() => {
-    handleGetCourse();
+    // handleGetCourse();
+    handleGetRevenueCourse();
     setLoading(false);
-  }, []);
+  }, [selectedDates]);
 
   const columns: TableProps<DataType>["columns"] = [
     {
       title: "Tên khóa học",
       dataIndex: "name",
       key: "name",
-    },
-    {
-      title: "Lĩnh vực",
-      dataIndex: "field",
-      key: "field",
-      render: (_, { field }: any, record: any) => <>{<p>{field?.title} </p>}</>,
-    },
-    {
-      title: "Chi phí",
-      dataIndex: "price",
-      key: "price",
-      render: (_, { price }) => <>{price.toLocaleString("en")} VND </>,
-    },
-    {
-      title: "Giảng viên",
-      dataIndex: "createdBy",
-      key: "createdBy",
-      render: (_, { createdBy }: any, record: any) => (
-        <>{<p>{createdBy?.name} </p>}</>
-      ),
-    },
-    {
-      title: "Số học viên",
-      dataIndex: "numBought",
-      key: "numBought",
     },
     {
       title: "Doanh thu",
@@ -104,9 +104,11 @@ function RevenueCourse() {
 
   return (
     <PageContainer
-      title={`Tất cả khóa học: ${total} khóa học`}
+      title={`Tất cả khóa học `}
       extra={[
         <Space>
+          <RangePicker format="MM/DD/YYYY" onChange={handleValue} />
+
           <ButtonSearch
             text="Nhập tên khóa học"
             handleSearchData={handleSearchData}

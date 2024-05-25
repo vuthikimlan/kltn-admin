@@ -1,4 +1,4 @@
-import { Space, Table, TableProps } from "antd";
+import { Button, Space, Table, TableProps } from "antd";
 import ButtonEdit from "../../Button/ButtonEdit";
 import ButtonDetail from "../../Button/Detail/DetailCourse";
 import ButtonAdd from "../../Button/Add/ButtonAdd";
@@ -9,19 +9,22 @@ import DetailCourse from "../../Drawer/detailCourse";
 import DropdownInstructor from "../../Dropdown/DropdownInstructor";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { useNavigate } from "react-router-dom";
 
 interface DataType {
   key: string;
   name: string;
-}
-interface PropType {
-  data: any;
-  loading: boolean;
-  handleGetCourse: () => void;
+  price: number;
 }
 
-function CourseInstructor({ data, loading, handleGetCourse }: PropType) {
+function CourseInstructor({
+  data,
+  loading,
+  handleGetCourse,
+  nameInstructor,
+}: any) {
   const role = useSelector((state: RootState) => state.modal.role);
+  const navigate = useNavigate();
 
   const columns: TableProps<DataType>["columns"] = [
     {
@@ -39,6 +42,7 @@ function CourseInstructor({ data, loading, handleGetCourse }: PropType) {
       title: "Chi phí",
       dataIndex: "price",
       key: "price",
+      render: (_, { price }) => <>{price.toLocaleString("en")} VND </>,
     },
     {
       title: "Trình độ",
@@ -68,6 +72,7 @@ function CourseInstructor({ data, loading, handleGetCourse }: PropType) {
   return (
     <>
       <PageContainer
+        title={`Các khóa học của giảng viên   `}
         extra={
           role === "TEACHER"
             ? [
@@ -75,7 +80,17 @@ function CourseInstructor({ data, loading, handleGetCourse }: PropType) {
                   <ButtonAdd modalKey="modalCourse" text="Thêm khóa học" />
                 </Space>,
               ]
-            : []
+            : [
+                <Space>
+                  <Button
+                    onClick={() => {
+                      navigate("/admin/teacher");
+                    }}
+                  >
+                    Quay lại
+                  </Button>
+                </Space>,
+              ]
         }
       >
         <AddEditCourse

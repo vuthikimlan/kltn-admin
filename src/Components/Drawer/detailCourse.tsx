@@ -86,6 +86,11 @@ const DetailCourse = () => {
           <Descriptions.Item label="Username" span={2}>
             {data?.createdBy?.username}
           </Descriptions.Item>
+          <Descriptions.Item label="Nội dung">
+            <div
+              dangerouslySetInnerHTML={{ __html: data?.detailsCourse }}
+            ></div>
+          </Descriptions.Item>
         </Descriptions>
       </Drawer>
     </>

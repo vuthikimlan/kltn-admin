@@ -1,12 +1,21 @@
-import { ProForm, ProFormDigit, ProFormText } from "@ant-design/pro-components";
+import {
+  ProForm,
+  ProFormDigit,
+  ProFormSelect,
+  ProFormText,
+} from "@ant-design/pro-components";
 import { useForm } from "antd/es/form/Form";
 import { useDispatch } from "react-redux";
 import { hiddenPopOver } from "../../store/modalSlice";
 import { Button, Form } from "antd";
+import { getListField } from "../../Services/api/category";
+import { useEffect, useState } from "react";
 
 const PopOverCourse = ({ onSearch }: any) => {
   const [form] = useForm();
   const dispatch = useDispatch();
+  const [field, setField] = useState<any>([]);
+  const [topic, setTopic] = useState<any>([]);
 
   const hide = () => {
     dispatch(hiddenPopOver());
@@ -17,6 +26,33 @@ const PopOverCourse = ({ onSearch }: any) => {
     hide();
     form.resetFields();
   };
+
+  const handleGetAll = async () => {
+    await getListField().then((res) => {
+      const items = res?.data?.data?.items;
+      const optionsField = items.map((e: any) => {
+        return {
+          label: e.title,
+          value: e._id,
+        };
+      });
+      const itemsTopic = res?.data?.data?.items.flatMap(
+        (item: { topics: any }) => item.topics
+      );
+      const topics = itemsTopic.map((el: any) => {
+        return {
+          label: el.nameTopic,
+          value: el._id,
+        };
+      });
+      setTopic(topics);
+      setField(optionsField);
+    });
+  };
+
+  useEffect(() => {
+    handleGetAll();
+  }, []);
 
   return (
     <>
@@ -37,35 +73,39 @@ const PopOverCourse = ({ onSearch }: any) => {
           />
         </ProForm.Group>
         <ProForm.Group>
-          <ProFormText
+          <ProFormSelect
             width="md"
             name="field"
             label="Lĩnh vực"
-            placeholder="Nhập lĩnh vực"
+            placeholder="Chọn lĩnh vực"
+            options={field}
           />
         </ProForm.Group>
         <ProForm.Group>
-          <ProFormText
+          <ProFormSelect
             width="md"
-            name="category"
+            name="topic"
             label="Thể loại"
-            placeholder="Nhập thể loại"
+            placeholder="Chọn thể loại"
+            options={topic}
           />
         </ProForm.Group>
+        <p className=" mb-[10px] ">Lọc theo khoảng giá: </p>
         <ProForm.Group>
-          <ProFormDigit
-            width="md"
-            name="price"
-            label="Giá"
-            placeholder="Nhập giá"
-          />
+          <ProFormDigit width="sm" name="minPrice" placeholder="MinPrice" />
+          {"->"}
+          <ProFormDigit width="sm" name="maxPrice" placeholder="MaxPrice" />
         </ProForm.Group>
         <ProForm.Group>
-          <ProFormText
-            width="md"
+          <ProFormSelect
             name="level"
             label="Trình độ"
-            placeholder="Nhập trình độ"
+            placeholder=" Trình độ"
+            options={[
+              { label: "Sơ cấp", value: "PRIMARY" },
+              { label: "Trung cấp", value: "INTERMEDIATE " },
+              { label: "Tất cả trình độ", value: "ALL LEVELS" },
+            ]}
           />
         </ProForm.Group>
         <Form.Item>

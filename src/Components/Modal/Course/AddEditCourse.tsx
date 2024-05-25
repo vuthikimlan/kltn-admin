@@ -9,18 +9,19 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { modalAddEditClose } from "../../../store/modalSlice";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createCourse, updateCourse } from "../../../Services/api/course";
-import { message } from "antd";
+import { FormInstance, message } from "antd";
 import { getListField } from "../../../Services/api/category";
 import ButtonUpload from "../../Button/ButtonUpload";
+import CKeditor from "../../Ckeditor/CKeditor";
 
 interface DataType {
   getCourse: () => void;
 }
 
 const AddEditCourse = ({ getCourse }: DataType) => {
-  const formRef = useRef();
+  const formRef = useRef<FormInstance>(null);
   const dispatch = useDispatch();
   const modalOpen = useSelector(
     (state: RootState) => state?.modal?.modalOpen.modalCourse
@@ -32,7 +33,7 @@ const AddEditCourse = ({ getCourse }: DataType) => {
   const [topic, setTopic] = useState();
   const data = updateData as any;
 
-  const getField = () => {
+  const getField = useCallback(() => {
     getListField().then((res) => {
       const fields = res?.data?.data?.items;
       const options = fields.map((e: any) => {
@@ -53,7 +54,7 @@ const AddEditCourse = ({ getCourse }: DataType) => {
       setField(options);
       setTopic(topics);
     });
-  };
+  }, []);
 
   useEffect(() => {
     getField();
@@ -135,12 +136,6 @@ const AddEditCourse = ({ getCourse }: DataType) => {
             label="Mô tả"
             placeholder="Mô tả"
           />
-          <ProFormTextArea
-            width="md"
-            name="detailsCourse"
-            label="Chi tiết về khóa học"
-            placeholder="Chi tiết về khóa học"
-          />
 
           <ProFormSelect
             width="md"
@@ -155,19 +150,6 @@ const AddEditCourse = ({ getCourse }: DataType) => {
                 return value;
               }
             }}
-            // transform={(value) => {
-            //   console.log("value", value);
-
-            //   // if (value?.title) {
-            //   //   console.log("true");
-            //   //   const list = value.map((val: { id: any }) => val?.id);
-            //   //   return {
-            //   //     field: list,
-            //   //   };
-            //   // } else {
-            //   //   return { field: value };
-            //   // }
-            // }}
             initialValue={data._id ? data.field.title : ""}
             options={field}
             label="Lĩnh vực"
@@ -231,6 +213,16 @@ const AddEditCourse = ({ getCourse }: DataType) => {
             placeholder="Nội dung khóa học"
             mode="tags"
           />
+          <ProForm.Item name="detailsCourse" label="Chi tiết về khóa học">
+            <CKeditor
+              onChange={(event: any, editor: any) => {
+                formRef?.current?.setFieldsValue({
+                  detailsCourse: editor.getData(),
+                });
+              }}
+              initialValues={data?.detailsCourse}
+            />
+          </ProForm.Item>
         </ProForm.Group>
       </ModalForm>
     </div>

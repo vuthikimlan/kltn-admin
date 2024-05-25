@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
 function DropdownRevenue({ record }: any) {
+  console.log(record);
+
   const navigate = useNavigate();
   const role = useSelector((state: RootState) => state?.modal?.role);
 

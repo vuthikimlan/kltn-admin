@@ -20,6 +20,7 @@ function RatingsCourse() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<[]>([]);
   const [totalRatings, setTotalRatings] = useState<any>();
+  const [name, setName] = useState<any>();
   const [userRatings, setUserRatings] = useState<any>();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ function RatingsCourse() {
   const handleGetRatingsCourse = () => {
     getCourseById(id).then((res) => {
       if (res.status === 200) {
+        setName(res?.data?.data?.name);
         setTotalRatings(res?.data?.data?.totalRatings);
         setUserRatings(res?.data?.data?.userRatings);
         setLoading(false);
@@ -105,7 +107,7 @@ function RatingsCourse() {
 
   return (
     <PageContainer
-      title={` ${totalRatings} sao với số lượt đánh giá là ${userRatings} `}
+      title={` ${totalRatings} sao với số lượt đánh giá là ${userRatings} cho "${name}" `}
       extra={[
         <Space>
           <Button

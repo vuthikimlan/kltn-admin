@@ -78,12 +78,24 @@ const TableStudent: React.FC = () => {
       render: (record) => (
         <Space>
           <ButtonEdit modalKey="modalUser" record={record} />
-          <ButtonDelete
-            onSuccess={() => {
-              handleGetAll();
-            }}
-            record={record}
-          />
+          {record.boughtCourses.length > 0 ? (
+            <ButtonDelete
+              onSuccess={() => {
+                handleGetAll();
+              }}
+              record={record}
+              disabled={true}
+            />
+          ) : (
+            <ButtonDelete
+              onSuccess={() => {
+                handleGetAll();
+              }}
+              record={record}
+              disabled={false}
+            />
+          )}
+
           <ButtonDetail record={record} />
         </Space>
       ),

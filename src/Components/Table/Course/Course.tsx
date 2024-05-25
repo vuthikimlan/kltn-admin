@@ -19,6 +19,7 @@ interface DataType {
   name: string;
   price: number;
   discountedPrice: number;
+  discountedCodeApplied: string;
 }
 
 const TableCourse = () => {
@@ -110,18 +111,30 @@ const TableCourse = () => {
       dataIndex: "discountedPrice",
       key: "discountedPrice",
       render: (_, { discountedPrice }) => (
-        <>{discountedPrice ? discountedPrice.toLocaleString("en") : 0} VND </>
+        <>
+          {discountedPrice ? (
+            <>
+              <p className=" text-rose-700 ">
+                {discountedPrice.toLocaleString("en")} VND
+              </p>
+            </>
+          ) : (
+            <>
+              <span>0 VND</span>
+            </>
+          )}
+        </>
       ),
     },
     {
       title: "Mã giảm giá",
       dataIndex: "discountedCodeApplied",
       key: "discountedCodeApplied",
-    },
-    {
-      title: "Trình độ",
-      dataIndex: "level",
-      key: "level",
+      render: (_, { discountedCodeApplied }) => (
+        <>
+          <p className=" text-rose-700 ">{discountedCodeApplied}</p>{" "}
+        </>
+      ),
     },
     {
       title: "Giảng viên",
@@ -130,6 +143,11 @@ const TableCourse = () => {
       render: (_, { createdBy }: any, record: any) => (
         <>{<p>{createdBy?.name} </p>}</>
       ),
+    },
+    {
+      title: "Số học viên",
+      dataIndex: "numBought",
+      key: "numBought",
     },
     {
       title: "Action",
@@ -141,16 +159,30 @@ const TableCourse = () => {
       // },
       render: (_, record: any, idx) => (
         <Space>
-          <DeleteCourse
-            onSuccess={() => {
-              handleGetCourse();
-            }}
-            record={record}
-          />
+          {record.numBought.length > 0 ? (
+            <DeleteCourse
+              onSuccess={() => {
+                handleGetCourse();
+              }}
+              record={record}
+              disabled={false}
+            />
+          ) : (
+            <DeleteCourse
+              onSuccess={() => {
+                handleGetCourse();
+              }}
+              record={record}
+              disabled={true}
+            />
+          )}
           <ButtonDetail record={record} />
           <DropdownInstructor record={record} />
           <ButtonApplyDiscount modalKey="modalDiscount" record={record?._id} />
-          <CancelDiscount record={record?._id} />
+          <CancelDiscount
+            record={record?._id}
+            handleGetCourse={handleGetCourse}
+          />
         </Space>
       ),
     },

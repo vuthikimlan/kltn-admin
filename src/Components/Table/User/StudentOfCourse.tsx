@@ -14,6 +14,7 @@ interface DataType {
 const StudentOfCourse: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<[]>([]);
+  const [name, setName] = useState<any>([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ const StudentOfCourse: React.FC = () => {
   const handleGetStudentOfCourse = () => {
     getCourseById(id).then((res) => {
       if (res.status === 200) {
+        setName(res?.data?.data?.name);
         setData(res?.data?.data?.users || []);
       }
     });
@@ -55,7 +57,7 @@ const StudentOfCourse: React.FC = () => {
   return (
     <>
       <PageContainer
-        title={`Tất cả học viên: ${total} học viên`}
+        title={`Tất cả học viên của  "${name}" là : ${total} học viên`}
         extra={[
           <Space>
             <Button

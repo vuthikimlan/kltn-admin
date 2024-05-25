@@ -79,12 +79,24 @@ const TableTeacher: React.FC = () => {
       render: (record) => (
         <Space>
           <ButtonEdit modalKey="modalUser" record={record} />
-          <ButtonDelete
-            onSuccess={() => {
-              handleGetAll();
-            }}
-            record={record}
-          />
+          {record?.coursesPosted?.length > 0 ? (
+            <ButtonDelete
+              onSuccess={() => {
+                handleGetAll();
+              }}
+              record={record}
+              disabled={true}
+            />
+          ) : (
+            <ButtonDelete
+              onSuccess={() => {
+                handleGetAll();
+              }}
+              record={record}
+              disabled={false}
+            />
+          )}
+
           <DetailTeacher record={record} />
           <ButtonListCourse id={record?._id} />
         </Space>

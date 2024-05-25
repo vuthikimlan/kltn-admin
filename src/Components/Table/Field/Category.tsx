@@ -11,7 +11,7 @@ import ButtonEdit from "../../Button/ButtonEdit";
 type ItemType = any;
 
 function TableCategory() {
-  const [data, setData] = useState();
+  const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [fieldId, setFieldId] = useState();
 
@@ -57,8 +57,6 @@ function TableCategory() {
     return result;
   };
 
-  const field = data as any;
-
   return (
     <>
       <PageContainer
@@ -72,7 +70,7 @@ function TableCategory() {
       >
         <Tabs
           defaultActiveKey="1"
-          items={itemsLecture(field)}
+          items={itemsLecture(data)}
           centered
           onChange={onChange}
         />

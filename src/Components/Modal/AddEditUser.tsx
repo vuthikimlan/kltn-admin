@@ -188,21 +188,23 @@ const AddEditUser = ({ getUser }: DataType) => {
               <ProFormText
                 width="md"
                 name="accountName"
-                initialValue={data._id ? data?.teacher?.accountName : ""}
+                initialValue={data._id ? data?.paymentMethod?.accountName : ""}
                 label="Tên tài khoản ngân hàng"
                 placeholder="Tên tài khoản ngân hàng"
               />
               <ProFormDigit
                 width="md"
                 name="accountNumber"
-                initialValue={data._id ? data?.teacher?.accountNumber : ""}
+                initialValue={
+                  data._id ? data?.paymentMethod?.accountNumber : ""
+                }
                 label="Số tài khoản ngân hàng"
                 placeholder="Số tài khoản ngân hàng"
               />
               <ProFormText
                 width="md"
                 name="bankCode"
-                initialValue={data._id ? data?.teacher?.bankCode : ""}
+                initialValue={data._id ? data?.paymentMethod?.bankCode : ""}
                 label="Mã ngân hàng"
                 placeholder="Mã ngân hàng"
               />

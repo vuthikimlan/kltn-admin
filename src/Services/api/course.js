@@ -81,8 +81,9 @@ export const filterCourse = (values) => {
   const courseValues = {
     name: values.name,
     field: values.field,
-    category: values.category,
-    price: values.price,
+    topic: values.topic,
+    minPrice: values.minPrice,
+    maxPrice: values.maxPrice,
     level: values.level,
   };
   return axios.post("/course/filter", courseValues);

@@ -1,4 +1,4 @@
-import { Button, Descriptions, Drawer } from "antd";
+import { Button, Descriptions, Drawer, Table, TableProps } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUserById } from "../../Services/api/user";
@@ -6,8 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { drawerClose } from "../../store/modalSlice";
 
+interface DataType {
+  key: string;
+  name: string;
+}
+
 const DetailUser = () => {
   const [data, setData] = useState<any>();
+  const [course, setCourse] = useState<any>();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,15 +36,33 @@ const DetailUser = () => {
     });
   };
 
+  const columns: TableProps<DataType>["columns"] = [
+    {
+      title: "Tên khóa học",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Giảng viên",
+      dataIndex: "createdBy",
+      key: "createdBy",
+      render: (_, { createdBy }: any, record: any) => (
+        <>{<p>{createdBy?.name} </p>}</>
+      ),
+    },
+  ];
+
   useEffect(() => {
     handleGetInforUser(idPath);
   }, [idPath]);
+
+  const courses = data?.boughtCourses;
 
   return (
     <>
       <Drawer
         title="Thông tin chi tiết người dùng"
-        width={500}
+        width={700}
         open={drawerOpen}
         onClose={() => {
           hiddenDrawer();
@@ -65,7 +89,7 @@ const DetailUser = () => {
           {/* <Descriptions.Item label="Vai trò" span={2}>
             {data?.username}
           </Descriptions.Item> */}
-          {data?.role === "TEACHER" && (
+          {data?.role === "TEACHER" ? (
             <>
               <Descriptions.Item label="Chuyên môn" span={2}>
                 {data?.teacher?.specialization}
@@ -93,11 +117,17 @@ const DetailUser = () => {
                 {data?.paymentMethod?.bankCode}
               </Descriptions.Item>
             </>
+          ) : (
+            <>
+              <Descriptions.Item span={4}>
+                Các khóa học đang tham gia:
+              </Descriptions.Item>
+              <Descriptions.Item>
+                <Table columns={columns} dataSource={courses} />
+              </Descriptions.Item>
+            </>
           )}
         </Descriptions>
-        <div>
-          <Button>Thanh toán</Button>
-        </div>
       </Drawer>
     </>
   );

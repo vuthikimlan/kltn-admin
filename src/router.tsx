@@ -25,12 +25,14 @@ import PageCourseInstructor from "./App/Course/CourseInstructor";
 import PageCourseInstructorAdmin from "./App/Course/CourseInstructorAdmin";
 import PageStatistic from "./App/Revenue/PageStatistic";
 import RevenueByMonthAdmin from "./App/Revenue/RevenueByMonthAdmin";
-import RevenueByMonthTeacher from "./App/Revenue/RevenueByMonthTeacher";
+import RevenueByMonthTeacher from "./App/Revenue/RevenueCourseByMonthTeacher";
 import PaymentOfTeacher from "./App/Payment/PaymentOfTeacher";
 import RevenueCourse from "./Components/Table/Course/RevenueCourse";
 import RevenueCourseByDay from "./App/Revenue/RevenueCourseByDay";
 import RevenueCourseByMonth from "./App/Revenue/RevenueCourseByMonth";
 import RevenueCourseOfInstructor from "./Components/Table/Course/RevenueCourseOfInstructor";
+import RevenueInstructor from "./Components/Table/Course/RevenueInstructor";
+import RevenueTeacherByMonth from "./App/Revenue/RevenueTeacherByMonth";
 
 export const router = createBrowserRouter([
   {
@@ -150,6 +152,10 @@ export const router = createBrowserRouter([
         element: <RevenueCourse />,
       },
       {
+        path: "revenue-instructor",
+        element: <RevenueInstructor />,
+      },
+      {
         path: "revenue-course-day/:id",
         element: <RevenueCourseByDay />,
       },
@@ -205,6 +211,10 @@ export const router = createBrowserRouter([
       {
         path: "revenue-course",
         element: <RevenueCourseOfInstructor />,
+      },
+      {
+        path: "revenue-teacher",
+        element: <RevenueTeacherByMonth />,
       },
       {
         path: "revenue-course-day/:id",

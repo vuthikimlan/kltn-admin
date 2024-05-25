@@ -14,7 +14,7 @@ import ButtonApprove from "../../Button/ButtonApprove";
 type ItemType = any;
 
 const Lectures = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<any>();
   const [idPart, setIdPart] = useState<string | string[]>();
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,18 +40,6 @@ const Lectures = () => {
     handleGetInfor(id);
   }, []);
 
-  // const LecturesEmpty = () => {
-  //   return (
-  //     <Result
-  //       status="403"
-  //       title="Chương trình giảng dạy của bạn đang trống."
-  //       subTitle="Vui lòng click vào nút dưới đây để tạo mới khóa học"
-  //       extra={<ButtonAddCourse />}
-  //     />
-  //   );
-  // };
-
-  const parts = data as any;
   const getCourseCallBack = useCallback((id: string) => {
     handleGetInfor(id);
   }, []);
@@ -124,7 +112,7 @@ const Lectures = () => {
             >
               Quay lại khóa học
             </Button>
-            {role === "ADMIN" ? (
+            {/* {role === "ADMIN" ? (
               <>
                 <Button
                   onClick={() => {
@@ -134,7 +122,7 @@ const Lectures = () => {
                   Khóa học chờ phê duyệt
                 </Button>
               </>
-            ) : undefined}
+            ) : undefined} */}
           </Space>,
         ]}
       >
@@ -143,7 +131,7 @@ const Lectures = () => {
         ) : (
           <Collapse items={itemsLetture(lectures)} />
         )} */}
-        <Collapse items={itemsLecture(parts)} onChange={onChange} />
+        <Collapse items={itemsLecture(data)} onChange={onChange} />
       </PageContainer>
     </div>
   );

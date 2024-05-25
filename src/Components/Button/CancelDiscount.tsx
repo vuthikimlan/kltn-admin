@@ -1,12 +1,12 @@
 import { Button, message } from "antd";
 import { cancelDiscount } from "../../Services/api/course";
 
-function CancelDiscount({ record }: any) {
+function CancelDiscount({ record, handleGetCourse }: any) {
   const handleCancelDiscount = () => {
     cancelDiscount(record).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         message.success("Hủy mã giảm giá thành công");
+        handleGetCourse();
       }
     });
   };

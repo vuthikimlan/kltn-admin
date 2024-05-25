@@ -28,8 +28,6 @@ function DetailBLog() {
     });
   };
 
-  console.log("data", data);
-
   useEffect(() => {
     getById();
   }, [id]);

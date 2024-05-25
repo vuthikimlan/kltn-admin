@@ -3,12 +3,7 @@ import { Button, Popconfirm } from "antd";
 import { deleteCourse } from "../../../Services/api/course";
 import React from "react";
 
-interface DataType {
-  onSuccess: () => void;
-  record: any;
-}
-
-const DeleteCourse = ({ onSuccess, record }: DataType) => {
+const DeleteCourse = ({ onSuccess, record, disabled }: any) => {
   const handleDelete = () => {
     deleteCourse(record._id).then((res) => {
       if (res.status === 200) {
@@ -28,7 +23,12 @@ const DeleteCourse = ({ onSuccess, record }: DataType) => {
         okText="Đồng ý"
         cancelText="Hủy"
       >
-        <Button danger className="delete" icon={<DeleteOutlined />}></Button>
+        <Button
+          danger
+          disabled={disabled}
+          className="delete"
+          icon={<DeleteOutlined />}
+        ></Button>
       </Popconfirm>
     </>
   );

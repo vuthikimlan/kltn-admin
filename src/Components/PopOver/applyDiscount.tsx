@@ -5,7 +5,6 @@ import { modalAddEditClose } from "../../store/modalSlice";
 import { getListDiscount } from "../../Services/api/discount";
 import { useEffect, useRef, useState } from "react";
 import { applyDiscount } from "../../Services/api/course";
-import { RootState } from "../../store/store";
 import { FormInstance } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -14,14 +13,11 @@ function ApplyDiscount({ onSuccess }: any) {
   const dispatch = useDispatch();
   const [discount, setDiscount] = useState();
   const modalOpen = useSelector(
-    (state: RootState) => state?.modal.modalOpen.modalDiscount
+    (state: any) => state?.modal.modalOpen.modalDiscount
   );
   const navigate = useNavigate();
-  const role = useSelector((state: RootState) => state?.modal?.role);
-
-  const dataDiscounts = useSelector(
-    (state: RootState) => state?.modal?.dataDiscount
-  );
+  const role = useSelector((state: any) => state?.modal?.role);
+  const dataDiscounts = useSelector((state: any) => state?.modal?.dataDiscount);
 
   const hiddenModal = () => {
     dispatch(modalAddEditClose({ modalKey: "modalDiscount" }));
@@ -32,7 +28,16 @@ function ApplyDiscount({ onSuccess }: any) {
   const handleGetDiscount = () => {
     getListDiscount().then((res) => {
       const items = res?.data?.data?.items;
-      const options = items.map((e: any) => {
+      const now = new Date();
+
+      // Check mã giảm giá nào còn hiệu lực sẽ hiển thị ra
+      const validCodes = items.filter(
+        (item: { expiryDate: string | number | Date }) => {
+          const expiry = new Date(item.expiryDate);
+          return now < expiry;
+        }
+      );
+      const options = validCodes.map((e: any) => {
         return {
           label: e.discountRate,
           value: e.discountCode,
@@ -43,8 +48,7 @@ function ApplyDiscount({ onSuccess }: any) {
   };
 
   const handleApplyDiscount = (values: any) => {
-    applyDiscount((dataDiscounts as any)?.data, values).then((res) => {
-      console.log("res", res);
+    applyDiscount(dataDiscounts?.data, values).then((res) => {
       if (res?.data?.success === true) {
         message.success("Áp mã giảm giá cho khóa học thành công");
         onSuccess();

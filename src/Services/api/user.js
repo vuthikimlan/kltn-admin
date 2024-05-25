@@ -18,6 +18,7 @@ export const updateUser = (_id, values) => {
     email: values.email,
     username: values.username,
     phone: values.phone,
+    role: values.role,
     teacher: {
       specialization: values.specialization,
       experience: values.experience,
@@ -93,4 +94,8 @@ export const revenueInstructor = () => {
 
 export const revenueTeachers = (id) => {
   return axios.get(`/user/${id}/sales`);
+};
+
+export const revenueTeacherByMonth = () => {
+  return axios.get(`/user/reveneueInstructorByMonth`);
 };

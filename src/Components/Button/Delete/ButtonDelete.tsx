@@ -5,12 +5,13 @@ import { deleteUser } from "../../../Services/api/user";
 // import './style.css'
 import "../../style.css";
 
-interface DataType {
-  onSuccess: () => void;
-  record: any;
-}
+// interface DataType {
+//   onSuccess: () => void;
+//   record: any;
+//   disabled: any;
+// }
 
-const ButtonDelete = ({ onSuccess, record }: DataType) => {
+const ButtonDelete = ({ onSuccess, record, disabled }: any) => {
   const handleDelete = () => {
     deleteUser(record._id).then((res) => {
       if (res.status === 200) {
@@ -32,7 +33,12 @@ const ButtonDelete = ({ onSuccess, record }: DataType) => {
         okText="Đồng ý"
         cancelText="Hủy"
       >
-        <Button danger className="delete" icon={<DeleteOutlined />}></Button>
+        <Button
+          danger
+          disabled={disabled}
+          className="delete"
+          icon={<DeleteOutlined />}
+        ></Button>
       </Popconfirm>
     </>
   );
