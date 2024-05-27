@@ -74,6 +74,7 @@ function AddEditBlog({ getBlog }: DataType) {
     <>
       <ModalForm
         title={data._id ? "Cập nhật blog - bài viết" : "Thêm Blog -  bài viết"}
+        width={1500}
         open={modalOpen}
         initialValues={updateData}
         modalProps={{
@@ -93,62 +94,64 @@ function AddEditBlog({ getBlog }: DataType) {
         }}
         formRef={formRef}
       >
+        <ButtonUpload
+          title="image"
+          initialValue=""
+          label="Ảnh"
+          listType="picture"
+        />
+        <ProFormText
+          width="lg"
+          name="title"
+          label="Lĩnh vực "
+          placeholder="Nhập lĩnh vực "
+        />
+        <ProFormText
+          name="name"
+          label="Tên blog "
+          placeholder="Nhập tên blog "
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập tên của blog",
+            },
+          ]}
+        />
         <ProForm.Group>
-          <ProFormText
-            width="md"
-            name="name"
-            label="Tên blog "
-            placeholder="Nhập tên blog "
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng nhập tên của blog",
-              },
-            ]}
+          <ButtonUpload
+            title="avatar"
+            initialValue=""
+            label="Avatar"
+            listType="picture"
           />
 
-          <ProFormTextArea
-            width="md"
-            name="description"
-            label="Mô tả "
-            placeholder="Nhập mô tả "
-          />
           <ProFormText
-            width="md"
-            name="title"
-            label="Lĩnh vực "
-            placeholder="Nhập lĩnh vực "
-          />
-          <ButtonUpload title="image" initialValue="" label="Ảnh" />
-          <ButtonUpload title="avatar" initialValue="" label="Avatar" />
-          <ProFormText
-            width="md"
+            width="lg"
             initialValue={data._id ? data?.author?.nameAuthor : ""}
             name="nameAuthor"
             label="Tên tác giả "
             placeholder="Nhập tên tác giả "
           />
-
-          <ProForm.Item
-            name="content"
-            label="Nội dung của Blog"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng nhập nội dung của blog",
-              },
-            ]}
-          >
-            <CKeditor
-              onChange={(event: any, editor: any) => {
-                formRef?.current?.setFieldsValue({
-                  content: editor.getData(),
-                });
-              }}
-              initialValues={data?.content}
-            />
-          </ProForm.Item>
         </ProForm.Group>
+        <ProForm.Item
+          name="content"
+          label="Nội dung của Blog"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập nội dung của blog",
+            },
+          ]}
+        >
+          <CKeditor
+            onChange={(event: any, editor: any) => {
+              formRef?.current?.setFieldsValue({
+                content: editor.getData(),
+              });
+            }}
+            initialValues={data?.content}
+          />
+        </ProForm.Item>
       </ModalForm>
     </>
   );

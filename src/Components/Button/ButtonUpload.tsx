@@ -2,14 +2,16 @@ import { ProFormUploadButton } from "@ant-design/pro-components";
 import { useState } from "react";
 import { uploadFile } from "../../Services/api/course";
 import { notification } from "antd";
+import { UploadListType } from "antd/es/upload/interface";
 
 interface Datatype {
   title: string;
   initialValue: string | "";
   label: string;
+  listType: string;
 }
 
-function ButtonUpload({ title, initialValue, label }: Datatype) {
+function ButtonUpload({ title, initialValue, label, listType }: Datatype) {
   const [listFile, setListFile] = useState<any[]>([]);
   const [fieldFile, setFieldFile] = useState("");
 
@@ -43,7 +45,7 @@ function ButtonUpload({ title, initialValue, label }: Datatype) {
           };
         }}
         fieldProps={{
-          listType: "picture-card",
+          listType: listType as UploadListType,
           method: "POST",
           name: "file",
           customRequest: handleUpload,

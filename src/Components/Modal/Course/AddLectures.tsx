@@ -96,8 +96,18 @@ function AddEditLecture({ idPart, getCourse }: any) {
             placeholder="Nhập mô tả"
           />
 
-          <ButtonUpload title="video" initialValue="" label="Video" />
-          <ButtonUpload title="document" initialValue="" label="Tài liệu" />
+          <ButtonUpload
+            title="video"
+            initialValue=""
+            label="Video"
+            listType="picture-card"
+          />
+          <ButtonUpload
+            title="document"
+            initialValue=""
+            label="Tài liệu"
+            listType="picture-card"
+          />
           <ProFormSwitch name="isFree" label="Miễn phí" />
         </ProForm.Group>
       </ModalForm>

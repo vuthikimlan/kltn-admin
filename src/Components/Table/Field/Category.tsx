@@ -53,7 +53,7 @@ function TableCategory() {
         ),
       };
     });
-    // return [];
+
     return result;
   };
 

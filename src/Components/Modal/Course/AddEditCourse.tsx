@@ -128,7 +128,13 @@ const AddEditCourse = ({ getCourse }: DataType) => {
               },
             ]}
           />
-          <ButtonUpload title="image" initialValue="" label="Ảnh" />
+
+          <ButtonUpload
+            title="image"
+            initialValue=""
+            label="Ảnh"
+            listType="picture-card"
+          />
 
           <ProFormTextArea
             width="md"
