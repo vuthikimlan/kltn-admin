@@ -1,7 +1,11 @@
 import { PageContainer } from "@ant-design/pro-components";
 import { Button, Dropdown, Space, Table, type TableProps } from "antd";
 import { useEffect, useState } from "react";
-import { filterCourse, getListCourse } from "../../../Services/api/course";
+import {
+  filterCourse,
+  getCourseAprroved,
+  getListCourse,
+} from "../../../Services/api/course";
 import ButtonSearch from "../../Button/ButtonSearch";
 import ButtonFilter from "../../Button/ButtonFilter";
 import DeleteCourse from "../../Button/Delete/Course";
@@ -24,16 +28,19 @@ interface DataType {
 
 const TableCourse = () => {
   const [data, setData] = useState();
-  const [total, setTotal] = useState();
   const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState();
 
   const navigate = useNavigate();
 
   const handleGetCourse = () => {
     setLoading(true);
-    getListCourse()
+    getCourseAprroved()
       .then((res) => {
-        setData(res?.data?.data?.items);
+        const course = res?.data?.data?.items?.flatMap((el: any) => {
+          return el.courseId;
+        });
+        setData(course);
         setTotal(res?.data?.data?.total);
       })
       .finally(() => {
@@ -73,15 +80,8 @@ const TableCourse = () => {
       },
     },
     {
-      label: "Các khóa học đã duyệt",
-      key: "2",
-      onClick: () => {
-        navigate("/admin/course-approved");
-      },
-    },
-    {
       label: "Các khóa học đã từ chối",
-      key: "3",
+      key: "2",
       onClick: () => {
         navigate("/admin/course-rejected");
       },
@@ -159,13 +159,13 @@ const TableCourse = () => {
       // },
       render: (_, record: any, idx) => (
         <Space>
-          {record.numBought.length > 0 ? (
+          {record.numBought > 0 ? (
             <DeleteCourse
               onSuccess={() => {
                 handleGetCourse();
               }}
               record={record}
-              disabled={false}
+              disabled={true}
             />
           ) : (
             <DeleteCourse
@@ -173,7 +173,7 @@ const TableCourse = () => {
                 handleGetCourse();
               }}
               record={record}
-              disabled={true}
+              disabled={false}
             />
           )}
           <ButtonDetail record={record} />

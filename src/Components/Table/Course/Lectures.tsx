@@ -14,6 +14,7 @@ import ButtonApprove from "../../Button/ButtonApprove";
 type ItemType = any;
 
 const Lectures = () => {
+  const [parts, setParts] = useState<any>();
   const [data, setData] = useState<any>();
   const [idPart, setIdPart] = useState<string | string[]>();
   const navigate = useNavigate();
@@ -31,7 +32,8 @@ const Lectures = () => {
   const handleGetInfor = async (idPath: string) => {
     getCourseById(idPath).then((res) => {
       if (res.status === 200) {
-        setData(res?.data?.data?.parts);
+        setData(res?.data?.data);
+        setParts(res?.data?.data?.parts);
       }
     });
   };
@@ -73,7 +75,7 @@ const Lectures = () => {
   return (
     <div>
       <PageContainer
-        title="Chương trình giảng dạy"
+        title={`Chương trình giảng dạy khóa học ${data?.name} `}
         extra={[
           <Space>
             {/* Thêm phần khóa học */}
@@ -97,7 +99,9 @@ const Lectures = () => {
                 >
                   <Button>+ Phần</Button>
                 </Popover>
-                <ButtonApprove idCourse={id} />
+                {data?.isApprove === false ? (
+                  <ButtonApprove idCourse={id} />
+                ) : undefined}
               </>
             ) : undefined}
 
@@ -131,7 +135,7 @@ const Lectures = () => {
         ) : (
           <Collapse items={itemsLetture(lectures)} />
         )} */}
-        <Collapse items={itemsLecture(data)} onChange={onChange} />
+        <Collapse items={itemsLecture(parts)} onChange={onChange} />
       </PageContainer>
     </div>
   );

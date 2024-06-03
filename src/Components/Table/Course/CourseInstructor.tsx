@@ -15,6 +15,7 @@ interface DataType {
   key: string;
   name: string;
   price: number;
+  isApprove: boolean;
 }
 
 function CourseInstructor({
@@ -48,6 +49,14 @@ function CourseInstructor({
       title: "Trình độ",
       dataIndex: "level",
       key: "level",
+    },
+    {
+      title: "Phê duyệt",
+      dataIndex: "isApprove",
+      key: "isApprove",
+      render: (_, { isApprove }) => (
+        <>{isApprove ? <p>Đã duyệt</p> : <p>Chờ duyệt</p>}</>
+      ),
     },
     {
       title: "Action",

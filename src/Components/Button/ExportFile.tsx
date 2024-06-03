@@ -6,12 +6,14 @@ function ExportFile(dataInstructor: any) {
   const data = dataInstructor.dataInstructor;
 
   const renameColumn = data.map((item: any) => ({
+    Tháng: item.revenueByMonth.month,
     "Tên giảng viên": item.teacher.name,
     Email: item.teacher.email,
     "Tên ngân hàng": item.teacher.paymentMethod.accountName,
     "Số tài khoản": item.teacher.paymentMethod.accountNumber,
     "Mã ngân hàng": item.teacher.paymentMethod.bankCode,
     "Số tiền tạm tính": item.revenueByMonth.pendingEarning,
+    "Số tiền khấu trừ": item.revenueByMonth.costDeduction,
     "Số tiền thực nhận": item.revenueByMonth.paidEarning,
   }));
   const hanldeExportFile = () => {

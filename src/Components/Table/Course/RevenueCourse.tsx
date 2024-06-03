@@ -23,8 +23,6 @@ function RevenueCourse() {
     undefined
   );
 
-  console.log(selectedDates);
-
   const { RangePicker } = DatePicker;
 
   const handleValue = (dates: any) => {
@@ -74,7 +72,6 @@ function RevenueCourse() {
   };
 
   useEffect(() => {
-    // handleGetCourse();
     handleGetRevenueCourse();
     setLoading(false);
   }, [selectedDates]);
@@ -130,7 +127,9 @@ function RevenueCourse() {
         columns={columns}
         dataSource={data}
         loading={loading}
-        scroll={{ x: 1300 }}
+        pagination={{
+          pageSize: 7,
+        }}
       />
     </PageContainer>
   );

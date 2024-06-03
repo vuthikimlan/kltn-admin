@@ -16,7 +16,6 @@ import Login from "./Page/Login";
 import TableCategory from "./Components/Table/Field/Category";
 import ProfileUser from "./Components/ProfileUser/ProfileUser";
 import CourseApprove from "./Components/Table/Course/CourseApprove";
-import CourseApproved from "./Components/Table/Course/CourseApproved";
 import CourseRejected from "./Components/Table/Course/CourseRejected";
 import StudentOfTeacher from "./Components/Table/User/UserOfTeacher";
 import StudentOfCourse from "./Components/Table/User/StudentOfCourse";
@@ -89,10 +88,7 @@ export const router = createBrowserRouter([
         path: "course-approve",
         element: <CourseApprove />,
       },
-      {
-        path: "course-approved",
-        element: <CourseApproved />,
-      },
+
       {
         path: "course-rejected",
         element: <CourseRejected />,

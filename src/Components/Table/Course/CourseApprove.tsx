@@ -41,6 +41,8 @@ function CourseApprove() {
       });
   };
 
+  // console.log("reqId", reqId);
+
   useEffect(() => {
     handldGetApproveCourse();
     setLoading(false);
@@ -102,12 +104,12 @@ function CourseApprove() {
           {(reqId as any)?.map((id: any, ind: any) => (
             <>
               <AcceptCourse
-                key={ind}
+                key={`accept-${ind}`}
                 requestId={id}
                 getCourse={handldGetApproveCourse}
               />
               <RejectedCourse
-                key={ind}
+                key={`reject-${ind}`}
                 requestId={id}
                 getCourse={handldGetApproveCourse}
               />

@@ -13,7 +13,6 @@ interface DataType {
 
 function RevenueInstructor() {
   const [data, setData] = useState<any>();
-  const [month, setMonth] = useState<any>();
   const [loading, setLoading] = useState(true);
 
   const handleGetRevenueInstructor = () => {
@@ -21,7 +20,6 @@ function RevenueInstructor() {
     revenueInstructorBymonth()
       .then((res) => {
         setData(res?.data?.data);
-        setMonth(res?.data?.month);
       })
       .finally(() => {
         setLoading(false);
@@ -34,6 +32,13 @@ function RevenueInstructor() {
   }, []);
 
   const columns: TableProps<DataType>["columns"] = [
+    {
+      title: "Tháng",
+      dataIndex: "revenueByMonth",
+      key: "revenueByMonth",
+      render: (_, { revenueByMonth }) => <>{revenueByMonth.month} </>,
+      sorter: (a, b) => a.revenueByMonth.month - b.revenueByMonth.month,
+    },
     {
       title: "Tên giảng viên",
       dataIndex: "teacher",
@@ -73,6 +78,14 @@ function RevenueInstructor() {
       ),
     },
     {
+      title: "Số tiền khấu trừ",
+      dataIndex: "revenueByMonth",
+      key: "revenueByMonth",
+      render: (_, { revenueByMonth }) => (
+        <>{revenueByMonth.costDeduction.toLocaleString("en")} VND </>
+      ),
+    },
+    {
       title: "Số tiền thực nhận",
       dataIndex: "revenueByMonth",
       key: "revenueByMonth",
@@ -84,7 +97,7 @@ function RevenueInstructor() {
 
   return (
     <PageContainer
-      title={`Doanh thu của giảng viên trong tháng ${month} `}
+      title={`Doanh thu của giảng viên trong tháng  `}
       extra={[<Space>{data && <ExportFile dataInstructor={data} />}</Space>]}
     >
       <Table

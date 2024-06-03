@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
 function DropdownRevenue({ record }: any) {
-  console.log(record);
-
   const navigate = useNavigate();
   const role = useSelector((state: RootState) => state?.modal?.role);
 
@@ -16,9 +14,9 @@ function DropdownRevenue({ record }: any) {
       key: "1",
       onClick: () => {
         if (role === "TEACHER") {
-          navigate(`/instructor/revenue-course-day/${record._id}`);
+          navigate(`/instructor/revenue-course-day/${record.courseId}`);
         } else if (role === "ADMIN") {
-          navigate(`/admin/revenue-course-day/${record._id}`);
+          navigate(`/admin/revenue-course-day/${record.courseId}`);
         }
       },
     },
@@ -27,9 +25,9 @@ function DropdownRevenue({ record }: any) {
       key: "2",
       onClick: () => {
         if (role === "TEACHER") {
-          navigate(`/instructor/revenue-course-month/${record._id}`);
+          navigate(`/instructor/revenue-course-month/${record.courseId}`);
         } else if (role === "ADMIN") {
-          navigate(`/admin/revenue-course-month/${record._id}`);
+          navigate(`/admin/revenue-course-month/${record.courseId}`);
         }
       },
     },

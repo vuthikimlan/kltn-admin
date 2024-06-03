@@ -208,7 +208,7 @@ const AddEditCourse = ({ getCourse }: DataType) => {
             ]}
             options={[
               { label: "Sơ cấp", value: "PRIMARY" },
-              { label: "Trung cấp", value: "INTERMEDIATE " },
+              { label: "Trung cấp", value: "INTERMEDIATE" },
               { label: "Tất cả trình độ", value: "ALL LEVELS" },
             ]}
           />
