@@ -1,8 +1,9 @@
 import { PageContainer } from "@ant-design/pro-components";
-import { Button, Space, Table, type TableProps } from "antd";
+import { Button, DatePicker, Space, Table, type TableProps } from "antd";
 import { useEffect, useState } from "react";
 import { revenueInstructorBymonth } from "../../../Services/api/revenue";
 import ExportFile from "../../Button/ExportFile";
+import { Moment } from "moment";
 
 interface DataType {
   key: string;
@@ -14,22 +15,43 @@ interface DataType {
 function RevenueInstructor() {
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(true);
+  const [selectedDates, setSelectedDates] = useState<Moment[] | undefined>(
+    undefined
+  );
+
+  const { RangePicker } = DatePicker;
+  const handleValue = (dates: any) => {
+    setSelectedDates(dates);
+  };
 
   const handleGetRevenueInstructor = () => {
-    setLoading(true);
-    revenueInstructorBymonth()
-      .then((res) => {
-        setData(res?.data?.data);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (selectedDates) {
+      const fromDate = selectedDates[0].format("MM/DD/YYYY");
+      const toDate = selectedDates[1].format("MM/DD/YYYY");
+      setLoading(true);
+      revenueInstructorBymonth({ fromDate, toDate })
+        .then((res) => {
+          setData(res?.data?.data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      revenueInstructorBymonth()
+        .then((res) => {
+          setData(res?.data?.data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   useEffect(() => {
     handleGetRevenueInstructor();
     setLoading(false);
-  }, []);
+  }, [selectedDates]);
 
   const columns: TableProps<DataType>["columns"] = [
     {
@@ -97,8 +119,13 @@ function RevenueInstructor() {
 
   return (
     <PageContainer
-      title={`Doanh thu của giảng viên trong tháng  `}
-      extra={[<Space>{data && <ExportFile dataInstructor={data} />}</Space>]}
+      title={`Doanh thu của giảng viên theo tháng  `}
+      extra={[
+        <Space>
+          <RangePicker format="MM/DD/YYYY" onChange={handleValue} />
+          {data && <ExportFile dataInstructor={data} />}
+        </Space>,
+      ]}
     >
       <Table
         size="large"

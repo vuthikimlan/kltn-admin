@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { filterCourse } from "../../../Services/api/course";
 import DropdownRevenue from "../../Dropdown/DropdownRevenue";
 import { revenueCourseByTime } from "../../../Services/api/revenue";
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 
 interface DataType {
   key: string;

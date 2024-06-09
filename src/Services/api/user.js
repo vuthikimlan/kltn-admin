@@ -99,3 +99,7 @@ export const revenueTeachers = (id) => {
 export const revenueTeacherByMonth = () => {
   return axios.get(`/user/reveneueInstructorByMonth`);
 };
+
+export const progressUser = (userId, courseId) => {
+  return axios.get(`/user/progress/${userId}/${courseId}`);
+};

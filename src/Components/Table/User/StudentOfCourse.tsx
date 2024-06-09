@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Table, type TableProps } from "antd";
+import { Button, Progress, Space, Table, type TableProps } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
 import { getCourseById } from "../../../Services/api/course";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { progressUser } from "../../../Services/api/user";
 
 interface DataType {
   key: string;
@@ -15,6 +16,7 @@ const StudentOfCourse: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<[]>([]);
   const [name, setName] = useState<any>([]);
+  const [progress, setProgress] = useState<any>([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -25,6 +27,15 @@ const StudentOfCourse: React.FC = () => {
       if (res.status === 200) {
         setName(res?.data?.data?.name);
         setData(res?.data?.data?.users || []);
+      }
+    });
+  };
+
+  const getProgress = () => {
+    data.map(async (user: any) => {
+      const res = await progressUser(user._id, id);
+      if (res.status === 200) {
+        setProgress(res?.data?.data?.progressPercentage);
       }
     });
   };
@@ -45,12 +56,22 @@ const StudentOfCourse: React.FC = () => {
       dataIndex: "phone",
       key: "phone",
     },
+    {
+      title: "Tiến độ học",
+      key: "progress",
+      render: (record: any) => (
+        <>
+          <Progress type="circle" percent={progress} size={50} />
+        </>
+      ),
+    },
   ];
 
   const total = data.length;
 
   useEffect(() => {
     handleGetStudentOfCourse();
+    getProgress();
     setLoading(false);
   }, [id]);
 

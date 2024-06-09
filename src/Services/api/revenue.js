@@ -5,6 +5,5 @@ export const revenueCourseByTime = (date) => {
 };
 
 export const revenueInstructorBymonth = (date) => {
-  console.log(date);
-  return axios.get("/payment/revenueInstructorBymonth", date);
+  return axios.post("/payment/revenueInstructorBymonth", date);
 };

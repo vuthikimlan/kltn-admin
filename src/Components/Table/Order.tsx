@@ -114,7 +114,7 @@ function TableOrder() {
           loading={loading}
           dataSource={data}
           pagination={{
-            pageSize: 7,
+            pageSize: 10,
           }}
         />
         <DetailOrder />

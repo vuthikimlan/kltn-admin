@@ -32,11 +32,16 @@ import RevenueCourseByMonth from "./App/Revenue/RevenueCourseByMonth";
 import RevenueCourseOfInstructor from "./Components/Table/Course/RevenueCourseOfInstructor";
 import RevenueInstructor from "./Components/Table/Course/RevenueInstructor";
 import RevenueTeacherByMonth from "./App/Revenue/RevenueTeacherByMonth";
+import ForgotPassword from "./Page/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+  },
+  {
+    path: "forgot-password",
+    element: <ForgotPassword />,
   },
   {
     path: "/admin",

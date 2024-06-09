@@ -47,54 +47,60 @@ function Login() {
 
   return (
     <div className="w-[28%] m-[auto] h-[100vh] ">
-      <Form onFinish={onFinish} className="py-[30%] ">
-        <h1 className="m-[auto] w-[45%] p-[16px] text-2xl font-bold font-serif ">
-          {" "}
-          Đăng nhập{" "}
-        </h1>
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Tên tài khoản tối thiểu 6 ký tự",
-            },
-          ]}
-        >
-          <Input
-            className="input"
-            prefix={<UserOutlined />}
-            placeholder="Tên tài khoản"
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              message: "Mật khẩu tối thiểu 6 - 20 ký tự",
-            },
-          ]}
-        >
-          <Input.Password
-            className="input"
-            prefix={<LockOutlined />}
-            placeholder="Mật khẩu"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="button block w-[101%] rounded-none"
-            loading={loading}
+      <div className="p-[30px] border-solid border-[1px]  shadow-xl mt-[30%] ">
+        <Form onFinish={onFinish} className=" ">
+          <h1 className="m-[auto] w-[45%] pb-[16px] text-2xl font-bold font-serif text-center ">
+            {" "}
+            Đăng nhập{" "}
+          </h1>
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Tên tài khoản tối thiểu 6 ký tự",
+              },
+            ]}
           >
-            Đăng nhập
-          </Button>
-          <Button type="link" className="button w-[101%]  ">
-            Quên mật khẩu
-          </Button>
-        </Form.Item>
-      </Form>
+            <Input
+              className="input"
+              prefix={<UserOutlined />}
+              placeholder="Tên tài khoản"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                message: "Mật khẩu tối thiểu 6 - 20 ký tự",
+              },
+            ]}
+          >
+            <Input.Password
+              className="input"
+              prefix={<LockOutlined />}
+              placeholder="Mật khẩu"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="button block w-[100%] rounded-none"
+              loading={loading}
+            >
+              Đăng nhập
+            </Button>
+            <Button
+              type="link"
+              className="button w-[100%]  "
+              onClick={() => navigate("/forgot-password")}
+            >
+              Quên mật khẩu
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 }
