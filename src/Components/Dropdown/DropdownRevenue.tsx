@@ -14,7 +14,7 @@ function DropdownRevenue({ record }: any) {
       key: "1",
       onClick: () => {
         if (role === "TEACHER") {
-          navigate(`/instructor/revenue-course-day/${record.courseId}`);
+          navigate(`/instructor/revenue-course-day/${record._id}`);
         } else if (role === "ADMIN") {
           navigate(`/admin/revenue-course-day/${record.courseId}`);
         }
@@ -25,7 +25,7 @@ function DropdownRevenue({ record }: any) {
       key: "2",
       onClick: () => {
         if (role === "TEACHER") {
-          navigate(`/instructor/revenue-course-month/${record.courseId}`);
+          navigate(`/instructor/revenue-course-month/${record._id}`);
         } else if (role === "ADMIN") {
           navigate(`/admin/revenue-course-month/${record.courseId}`);
         }

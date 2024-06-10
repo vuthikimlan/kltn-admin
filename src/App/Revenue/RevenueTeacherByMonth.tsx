@@ -1,7 +1,8 @@
-import { Table, TableProps } from "antd";
+import { DatePicker, Space, Table, TableProps } from "antd";
 import { revenueTeacherByMonth } from "../../Services/api/user";
 import { useEffect, useState } from "react";
 import { PageContainer } from "@ant-design/pro-components";
+import { Moment } from "moment";
 interface DataType {
   key: string;
   name: string;
@@ -13,22 +14,43 @@ interface DataType {
 function RevenueTeacherByMonth() {
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(true);
+  const [selectedDates, setSelectedDates] = useState<Moment[] | undefined>(
+    undefined
+  );
+
+  const { RangePicker } = DatePicker;
+  const handleValue = (dates: any) => {
+    setSelectedDates(dates);
+  };
 
   const handleGetRevenueInstructor = () => {
-    revenueTeacherByMonth()
-      .then((res) => {
-        console.log("res", res);
-        setData(res?.data?.data);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (selectedDates) {
+      const fromDate = selectedDates[0].format("MM/DD/YYYY");
+      const toDate = selectedDates[1].format("MM/DD/YYYY");
+      setLoading(true);
+      revenueTeacherByMonth({ fromDate, toDate })
+        .then((res) => {
+          setData(res?.data?.data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      revenueTeacherByMonth()
+        .then((res) => {
+          setData(res?.data?.data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   useEffect(() => {
     handleGetRevenueInstructor();
     setLoading(false);
-  }, []);
+  }, [selectedDates]);
   const columns: TableProps<DataType>["columns"] = [
     {
       title: "Tháng",
@@ -62,7 +84,14 @@ function RevenueTeacherByMonth() {
     },
   ];
   return (
-    <PageContainer title="Doanh thu giảng viên theo tháng">
+    <PageContainer
+      title="Doanh thu giảng viên theo tháng"
+      extra={[
+        <Space>
+          <RangePicker format="MM/DD/YYYY" onChange={handleValue} />
+        </Space>,
+      ]}
+    >
       <Table columns={columns} dataSource={data} loading={loading} />
     </PageContainer>
   );

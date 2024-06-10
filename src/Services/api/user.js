@@ -96,8 +96,8 @@ export const revenueTeachers = (id) => {
   return axios.get(`/user/${id}/sales`);
 };
 
-export const revenueTeacherByMonth = () => {
-  return axios.get(`/user/reveneueInstructorByMonth`);
+export const revenueTeacherByMonth = (date) => {
+  return axios.post(`/user/reveneueInstructorByMonth`, date);
 };
 
 export const progressUser = (userId, courseId) => {

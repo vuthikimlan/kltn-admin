@@ -153,12 +153,12 @@ export const router = createBrowserRouter([
         element: <RevenueCourse />,
       },
       {
-        path: "revenue-instructor",
-        element: <RevenueInstructor />,
-      },
-      {
         path: "revenue-course-day/:id",
         element: <RevenueCourseByDay />,
+      },
+      {
+        path: "revenue-instructor",
+        element: <RevenueInstructor />,
       },
       {
         path: "revenue-course-month/:id",
