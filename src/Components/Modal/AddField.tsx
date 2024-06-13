@@ -48,7 +48,7 @@ function AddField({ fieldId, getField }: any) {
   const handleCreateField = (values: any) => {
     createField(values).then((res) => {
       if (res?.data?.success === true) {
-        message.success("");
+        message.success("Tao thể loại thành công");
         getField();
         hiddenModal();
       }

@@ -118,9 +118,6 @@ function TableBlog() {
           columns={columns}
           dataSource={data}
           loading={loading}
-          scroll={{
-            y: 413,
-          }}
           pagination={{
             pageSize: 7,
           }}
