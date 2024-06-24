@@ -116,25 +116,9 @@ const Lectures = () => {
             >
               Quay lại khóa học
             </Button>
-            {/* {role === "ADMIN" ? (
-              <>
-                <Button
-                  onClick={() => {
-                    navigate("/admin/course-approve");
-                  }}
-                >
-                  Khóa học chờ phê duyệt
-                </Button>
-              </>
-            ) : undefined} */}
           </Space>,
         ]}
       >
-        {/* {lectures.length === 0 ? (
-          <LecturesEmpty />
-        ) : (
-          <Collapse items={itemsLetture(lectures)} />
-        )} */}
         <Collapse items={itemsLecture(parts)} onChange={onChange} />
       </PageContainer>
     </div>

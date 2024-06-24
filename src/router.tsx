@@ -33,6 +33,8 @@ import RevenueCourseOfInstructor from "./Components/Table/Course/RevenueCourseOf
 import RevenueInstructor from "./Components/Table/Course/RevenueInstructor";
 import RevenueTeacherByMonth from "./App/Revenue/RevenueTeacherByMonth";
 import ForgotPassword from "./Page/ForgotPassword";
+import AssignmentPage from "./Components/Table/Course/AssignmentList/AssignmentPage";
+import QuestionList from "./Components/Table/Course/AssignmentList/QuestionList";
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +103,14 @@ export const router = createBrowserRouter([
       {
         path: "lectures/:id",
         element: <Lectures />,
+      },
+      {
+        path: "assignment/:id",
+        element: <AssignmentPage />,
+      },
+      {
+        path: "question/:id",
+        element: <QuestionList />,
       },
       {
         path: "blog",
@@ -184,6 +194,14 @@ export const router = createBrowserRouter([
       {
         path: "lectures/:id",
         element: <Lectures />,
+      },
+      {
+        path: "assignment/:id",
+        element: <AssignmentPage />,
+      },
+      {
+        path: "question/:id",
+        element: <QuestionList />,
       },
       {
         path: "student-course/:id",

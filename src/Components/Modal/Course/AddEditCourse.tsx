@@ -124,7 +124,7 @@ const AddEditCourse = ({ getCourse }: DataType) => {
             rules={[
               {
                 required: true,
-                message: "Vul lòng nhập tên khóa học",
+                message: "Vui lòng nhập tên khóa học",
               },
             ]}
           />

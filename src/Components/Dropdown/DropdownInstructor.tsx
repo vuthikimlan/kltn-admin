@@ -21,8 +21,19 @@ function DropdownInstructor({ record }: any) {
       },
     },
     {
-      label: "Học viên của khóa học",
+      label: "Bài tập",
       key: "2",
+      onClick: () => {
+        if (role === "TEACHER") {
+          navigate(`/instructor/assignment/${record._id}`);
+        } else if (role === "ADMIN") {
+          navigate(`/admin/assignment/${record._id}`);
+        }
+      },
+    },
+    {
+      label: "Học viên của khóa học",
+      key: "3",
       onClick: () => {
         if (role === "TEACHER") {
           navigate(`/instructor/student-course/${record._id}`);
@@ -33,7 +44,7 @@ function DropdownInstructor({ record }: any) {
     },
     {
       label: "Đánh giá về khóa học",
-      key: "3",
+      key: "4",
       onClick: () => {
         if (role === "TEACHER") {
           navigate(`/instructor/ratings-course/${record._id}`);

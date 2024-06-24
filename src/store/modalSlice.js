@@ -14,6 +14,8 @@ export const modalSlice = createSlice({
       modalLectures: false,
       modalProfile: false,
       modalDiscount: false,
+      modalAssignment: false,
+      modalQuestion: false,
     },
     modalData: {} || "",
     drawerOpen: {
@@ -26,7 +28,9 @@ export const modalSlice = createSlice({
     hiddenPopOver: false,
     hiddenPopOverDiscount: false,
     hiddenPopOverEdit: false,
+    hiddenPopOverAnswer: [],
     dataDiscount: "",
+    courseId: "",
     role: role,
     isNewCourseCreated: false,
   },
@@ -69,6 +73,15 @@ export const modalSlice = createSlice({
     openPopOverEdit: (state) => {
       state.hiddenPopOverEdit = true;
     },
+    openPopOverAnswer: (state, action) => {
+      const { index } = action.payload;
+      const newPopoverStates = [...state.hiddenPopOverAnswer];
+      newPopoverStates[index] = !newPopoverStates[index];
+      state.hiddenPopOverAnswer = newPopoverStates;
+    },
+    hiddenPopOverAnswer: (state) => {
+      state.hiddenPopOverAnswer = state.hiddenPopOverAnswer.map(() => false);
+    },
     permission: (state, actions) => {
       state.role = actions.payload;
       Cookies.set("role", actions.payload);
@@ -78,6 +91,9 @@ export const modalSlice = createSlice({
     },
     notNewCourseCreated: (state) => {
       state.isNewCourseCreated = false;
+    },
+    getCourseId: (state, actions) => {
+      state.courseId = actions.payload;
     },
   },
 });
@@ -93,9 +109,12 @@ export const {
   popOverDiscountClose,
   hiddenPopOverEdit,
   openPopOverEdit,
+  openPopOverAnswer,
+  hiddenPopOverAnswer,
   permission,
   newCourseCreated,
   notNewCourseCreated,
+  getCourseId,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

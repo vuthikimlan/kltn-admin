@@ -133,3 +133,92 @@ export const applyDiscount = (courseId, values) => {
 export const cancelDiscount = (courseId) => {
   return axios.put(`/course/${courseId}/reset-discount`);
 };
+
+export const getAssignment = (id) => {
+  return axios.get(`/course/assignments/${id}`);
+};
+
+export const createAssignment = (id, values) => {
+  const data = {
+    nameAssignment: values.nameAssignment,
+    descriptionAssignment: values.descriptionAssignment,
+    dueDate: values.dueDate,
+  };
+  return axios.post(`/course/${id}/assignments`, data);
+};
+
+export const updateAssignment = (courseId, assignmentId, values) => {
+  const data = {
+    nameAssignment: values.nameAssignment,
+    descriptionAssignment: values.descriptionAssignment,
+    dueDate: values.dueDate,
+  };
+  return axios.put(`/course/${courseId}/assignments/${assignmentId}`, data);
+};
+
+export const deleteAssignment = (courseId, assignmentId) => {
+  return axios.delete(`/course/${courseId}/assignments/${assignmentId}`);
+};
+
+export const addQuestion = (courseId, assignmentId, values) => {
+  const data = {
+    questions: [
+      {
+        type: values.type,
+        question: values.question,
+        answer: values.answer,
+        options: [
+          {
+            option: values.option,
+            isCorrect: values.isCorrect,
+          },
+        ],
+      },
+    ],
+  };
+  return axios.put(`/course/${courseId}/assignments/${assignmentId}`, data);
+};
+export const updateQuestion = (courseId, assignmentId, optionId, values) => {
+  const data = {
+    questions: [
+      {
+        type: values.type,
+        question: values.question,
+        answer: values.answer,
+        options: [
+          {
+            option: values.option,
+            isCorrect: values.isCorrect,
+          },
+        ],
+      },
+    ],
+  };
+  return axios.put(
+    `/course/${courseId}/assignments/${assignmentId}/questions/${optionId}`,
+    data
+  );
+};
+
+export const addOptions = (courseId, assignmentId, optionId, values) => {
+  const data = {
+    newOption: {
+      option: values.option,
+      isCorrect: values.isCorrect,
+    },
+  };
+  return axios.put(
+    `/course/${courseId}/assignments/${assignmentId}/questions/${optionId}`,
+    data
+  );
+};
+
+export const getQuestion = (courseId, assignmentId) => {
+  return axios.get(`/course/assignments/${courseId}/question/${assignmentId}`);
+};
+
+export const deleteQuestion = (courseId, assignmentId, questionId) => {
+  return axios.delete(
+    `/course/${courseId}/assignments/${assignmentId}/questions/${questionId}`
+  );
+};

@@ -15,6 +15,7 @@ const ButtonAdd = ({ text, modalKey }: DataType) => {
       <Button
         onClick={() => {
           dispatch(modalAddEditOpen({ modalKey, data: {} }));
+          console.log("open modal");
         }}
       >
         {text}
